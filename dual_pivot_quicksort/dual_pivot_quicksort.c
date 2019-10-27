@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void partition(long *arr, int low, int high, int *left_pivot, int *right_pivot);
+void partition(long *restrict arr, int low, int high, int *left_pivot, int *right_pivot);
 
-void print_arr(long *arr, size_t len);
+void print_arr(long *restrict arr, size_t len);
 
-void swap(long *a, long *b)
+void swap(long *restrict a, long *restrict b)
 {
     long c = *a;
     *a = *b;
     *b = c;
 }
 
-void dual_pivot_quicksort(long *arr, int low, int high)
+void dual_pivot_quicksort(long *restrict arr, int low, int high)
 {
     if (low < high) {
         int left_pivot, right_pivot;
@@ -23,7 +23,7 @@ void dual_pivot_quicksort(long *arr, int low, int high)
     }
 }
 
-void partition(long *arr, int low, int high, int *ret_left_pivot, int *ret_right_pivot)
+void partition(long *restrict arr, int low, int high, int *ret_left_pivot, int *ret_right_pivot)
 {
     if (arr[low] > arr[high]) {
         swap(&arr[low], &arr[high]);
@@ -55,22 +55,18 @@ void partition(long *arr, int low, int high, int *ret_left_pivot, int *ret_right
 
 int main(void)
 {
-    char *line;
-    size_t buff;    /* Buffer size, don't exceed */
+    char *line = NULL;
+    size_t buff = 0;    /* Buffer size, don't exceed */
     ssize_t len;    /* "Signed size_t" */
-
-    buff = 200;
-    line = (char *) malloc (buff + 1);
     
-    long arr[100];
-    size_t arrLen = sizeof(arr) / sizeof(arr[0]);
+    size_t arrLen = 100;
+    long arr[arrLen];
     long *ptr = arr;
     
     while ((len = getline(&line, &buff, stdin)) != EOF) {
-        // print_string(line, len);
-        char *end;
+        char *end = NULL;
         size_t counter = 0;
-        for (long i = strtol(line, &end, 10);  /* first is string, then end pointer, then numeric base */
+        for (long i = strtol(line, &end, 10);
                 line != end && counter < arrLen;
                 i = strtol(line, &end, 10)) {
             arr[counter++] = i;
@@ -82,7 +78,7 @@ int main(void)
     return 0;
 }
 
-void print_arr(long *arr, size_t len)
+void print_arr(long *restrict arr, size_t len)
 {
     for (int i = 0; i < len - 1; i++) {
         printf("%ld ", arr[i]);
