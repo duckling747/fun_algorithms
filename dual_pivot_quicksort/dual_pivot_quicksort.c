@@ -56,12 +56,11 @@ void partition(long *restrict arr, int low, int high, int *ret_left_pivot, int *
 int main(void)
 {
     char *line = NULL;
-    size_t buff = 0;    /* Buffer size, don't exceed */
-    ssize_t len;    /* "Signed size_t" */
+    size_t buff = 0;
+    ssize_t len;
     
     size_t arrLen = 100;
     long arr[arrLen];
-    long *ptr = arr;
     
     while ((len = getline(&line, &buff, stdin)) != EOF) {
         char *end = NULL;
@@ -72,8 +71,8 @@ int main(void)
             arr[counter++] = i;
             line = end;
         }
-        dual_pivot_quicksort(ptr, 0, counter - 1);
-        print_arr(ptr, counter);
+        dual_pivot_quicksort(arr, 0, counter - 1);
+        print_arr(arr, counter);
     }
     return 0;
 }
