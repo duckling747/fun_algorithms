@@ -38,7 +38,7 @@ Node *split(Node *T)
 Node *insert(long value, Node *T)
 {
     if (T == NULL) {
-        Node *n = (Node*)malloc(sizeof(Node));
+        Node *n = malloc(sizeof(Node));
         n->key = value;
         n->level = 1;
         n->left = NULL;
