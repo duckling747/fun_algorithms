@@ -64,6 +64,7 @@ Node *delete(long value, Node *T)
         T->left = delete(value, T->left);
     } else {
         if (T->left == NULL && T->right == NULL) {
+            free(T);
             return NULL;
         } else if (T->left == NULL) {
             Node *L = successor(T);
