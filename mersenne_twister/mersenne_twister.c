@@ -38,7 +38,7 @@ void seed_mersenne_twister(int64_t seed) {
     }
 }
 
-void twister() {
+void twister(void) {
     for (int_fast16_t i = 0; i < n; i++) {
         int64_t x = (stateArr[i] & upper_mask) + (stateArr[(i + 1) % n] & lower_mask);
         int64_t xA = x >> 1;
@@ -50,7 +50,7 @@ void twister() {
     ind = 0;
 }
 
-int64_t get_number() {
+int64_t get_number(void) {
     assert(ind <= n);
     if (ind == n) {
         twister();
