@@ -43,7 +43,7 @@ void twister(void) {
         int64_t x = (stateArr[i] & upper_mask) + (stateArr[(i + 1) % n] & lower_mask);
         int64_t xA = x >> 1;
         if (x % 2 != 0) {
-            xA = xA ^ a;
+            xA ^= a;
         }
         stateArr[i] = stateArr[(i + m) % n] ^ xA;
     }
