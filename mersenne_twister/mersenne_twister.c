@@ -1,5 +1,5 @@
 /**
- * An MT19937-64 implementation
+ * An MT19937-64 implementation. Generates pseudorandom integers in the range [0, 2^w - 1].
  */
 
 #include <assert.h>
