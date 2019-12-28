@@ -22,15 +22,15 @@
 #define l 43
 #define f 6364136223846793005
 
-const int64_t 
+const uint64_t 
     lower_mask = (1U << r) - 1,
     upper_mask = (~lower_mask);
 
-int64_t stateArr[n];
+uint64_t stateArr[n];
 
 int_fast16_t ind = n + 1;
 
-void seed_mersenne_twister(int64_t seed) {
+void seed_mersenne_twister(uint64_t seed) {
     ind = n;
     stateArr[0] = seed;
     for (int_fast16_t i = 1; i < n; i++) {
@@ -40,8 +40,8 @@ void seed_mersenne_twister(int64_t seed) {
 
 void twister(void) {
     for (int_fast16_t i = 0; i < n; i++) {
-        int64_t x = (stateArr[i] & upper_mask) + (stateArr[(i + 1) % n] & lower_mask);
-        int64_t xA = x >> 1;
+        uint64_t x = (stateArr[i] & upper_mask) + (stateArr[(i + 1) % n] & lower_mask);
+        uint64_t xA = x >> 1;
         if (x % 2 != 0) {
             xA ^= a;
         }
@@ -50,12 +50,12 @@ void twister(void) {
     ind = 0;
 }
 
-int64_t get_number(void) {
+uint64_t get_number(void) {
     assert(ind <= n);
     if (ind == n) {
         twister();
     }
-    int64_t y = stateArr[ind];
+    uint64_t y = stateArr[ind];
     y = y ^ ((y >> u) & d);
     y = y ^ ((y << s) & b);
     y = y ^ ((y << t) & c);
@@ -75,7 +75,7 @@ void main(void) {
     scanf("%" SCNdFAST64, &how_many);
     // printf("\n");
     for (int_fast64_t i = 1; i <= how_many; i++) {
-        printf("Random number #%" PRIdFAST64 " is: %" PRId64 "\n", i, get_number());
+        printf("Random number #%" PRIdFAST64 " is: %" PRIu64 "\n", i, get_number());
     }
 }
 
